@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIODATA FATHIR V2</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #000;
+      color: white;
+      font-family: 'Orbitron', monospace;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* BACKGROUND ANIMASI MATRIX */
+   .matrix {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background: radial-gradient(circle at 50% 50%, #001a1a 0%, #000 100%);
+    }
+
+    canvas {
+      position: fixed;
+      top: 0; left: 0;
+      z-index: -1;
+    }
+
+    /* ANIMASI KEYFRAMES */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 20px cyan, 0 0 40px cyan, inset 0 0 20px cyan; }
+      50% { box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff00ff, inset 0 0 40px #ff00ff; }
+    }
+
+    @keyframes rgb-text {
+      0% { color: #ff0080; filter: hue-rotate(0deg); }
+      100% { color: #ff0080; filter: hue-rotate(360deg); }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    /* CARD UTAMA */
+   .card {
+      background: rgba(15, 15, 15, 0.8);
+      backdrop-filter: blur(10px);
+      border: 2px solid cyan;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      animation: glow 3s ease-in-out infinite, slideUp 1s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+   .card::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent, cyan, transparent);
+      animation: rotate 4s linear infinite;
+      opacity: 0.3;
+    }
+
+    @keyframes rotate {
+      100% { transform: rotate(360deg); }
+    }
+
+   .content { position: relative; z-index: 1; }
+
+    /* FOTO PROFILE */
+   .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid cyan;
+      margin: 0 auto 20px;
+      display: block;
+      object-fit: cover;
+      animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
+      transition: 0.3s;
+    }
+   .profile-img:hover {
+      transform: scale(1.1) rotate(5deg);
+      border-color: #ff00ff;
+    }
+
+    /* TEXT STYLING */
+   .nama {
+      font-size: 28px;
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 10px;
+      animation: rgb-text 3s linear infinite;
+      letter-spacing: 2px;
+    }
+
+   .username {
+      text-align: center;
+      color: #00ff00;
+      font-size: 18px;
+      margin-bottom: 30px;
+      animation: float 2s ease-in-out infinite;
+    }
+
+   .info-item {
+      margin: 20px 0;
+      padding: 15px;
+      background: rgba(0, 255, 255, 0.05);
+      border-left: 3px solid cyan;
+      border-radius: 8px;
+      transition: 0.3s;
+      animation: slideUp 0.5s ease-out forwards;
+      opacity: 0;
+    }
+   .info-item:nth-child(1) { animation-delay: 0.2s; }
+   .info-item:nth-child(2) { animation-delay: 0.4s; }
+   .info-item:nth-child(3) { animation-delay: 0.6s; }
+   .info-item:nth-child(4) { animation-delay: 0.8s; }
+
+   .info-item:hover {
+      background: rgba(255, 0, 255, 0.1);
+      border-left: 3px solid #ff00ff;
+      transform: translateX(10px);
+    }
+
+   .label {
+      color: yellow;
+      font-weight: 700;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+   .value {
+      color: #fff;
+      font-size: 16px;
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid cyan;
+      animation: typing 2s steps(30) 1s forwards, blink 0.5s step-end infinite alternate;
+    }
+
+   .status {
+      color: #ff00ff;
+      animation: glow 1s ease-in-out infinite;
+    }
+
+   .social {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+   .social a {
+      color: white;
+      font-size: 24px;
+      text-decoration: none;
+      transition: 0.3s;
+      animation: float 2s ease-in-out infinite;
+    }
+   .social a:nth-child(2) { animation-delay: 0.3s; }
+   .social a:nth-child(3) { animation-delay: 0.6s; }
+
+   .social a:hover {
+      transform: scale(1.3) rotate(360deg);
+      color: cyan;
+      text-shadow: 0 0 20px cyan;
+    }
+
+   .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #00ff00;
+      font-size: 12px;
+      animation: rgb-text 5s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="matrix"></div>
+  <canvas id="canvas"></canvas>
+
+  <div class="card">
+    <div class="content">
+      <!-- GANTI SRC FOTO LO DISINI BLAY -->
+      <img src="fathir.jpeg" alt="Foto Fathir" class="profile-img">
+
+      <h1 class="nama">FATHIR AL BANTANI</h1>
+      <p class="username">@superthiir</p>
+
+      <div class="info-item">
+        <span class="label"> UMUR</span>
+        <span class="value">20 </span>
+      </div>
+
+      <div class="info-item">
+        <span class="label"> HOBBY</span>
+        <span class="value">| Turu | Scroll TikTok</span>
+      </div>
+
+      <div class="info-item">
+        <span class="label">CITA-CITA</span>
+        <span class="value">Jadi Bengkel Akhlak</span>
+      </div>
+
+      <div class="info-item">
+        <span class="label"> STATUS</span>
+        <span class="value status">99% Single 💀</span>
+      </div>
+
+      <div class="social">
+        <a href="https://instagram.com/superthiir" target="_blank">📷</a>
+        <a href="https://tiktok.com/@superthiir" target="_blank">🎵</a>
+        <a href="https://github.com/fathiralbantani" target="_blank">💻</a>
+      </div>
+
+      <p class="footer">#NoCap </p>
+    </div>
+  </div>
+
+  <script>
+    // MATRIX RAIN BACKGROUND
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const chars = 'FATHIR01';
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0ff';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 35);
+
+    // STATUS KEDIP RANDOM
+    setInterval(() => {
+      document.querySelector('.status').style.opacity = Math.random() > 0.3? 1 : 0.2;
+    }, 400);
+
+    console.log("%c FATHIR V2 LOADED 🗿", "color: cyan; font-size: 20px; font-weight: bold");
+  </script>
+</body>
+</html>
